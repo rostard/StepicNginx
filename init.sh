@@ -1,7 +1,12 @@
-sudo ln -sf etc/nginx.conf  /etc/nginx/sites-enabled/default
-sudo ln -sf etc/hello.py /etc/gunicorn.d/hello.py
+ph=$(pwd)
 
+
+sudo ln -sf $ph/etc/nginx.conf  /etc/nginx/sites-enabled/
+#sudo rm /etc/nginx/sites-enabled/default
 sudo /etc/init.d/nginx restart
-sudo gunicorn -c etc/hello.py hello
+#sudo ln -sf etc/hello.py /etc/gunicorn.d/hello.py
+
+
+#sudo gunicorn -c etc/hello.py hello
 cd ask
 sudo gunicorn -c ../etc/django.py ask.wsgi:application
