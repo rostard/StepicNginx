@@ -10,3 +10,6 @@ sudo /etc/init.d/nginx restart
 #sudo gunicorn -c etc/hello.py hello
 cd ask
 sudo gunicorn -c ../etc/django.py ask.wsgi:application
+
+sudo /etc/init.d/mysql start
+mysql -uroot -e "create database db_web"
