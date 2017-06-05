@@ -6,6 +6,7 @@
 	</title>
 </head>
 <body>
+	<center>
 	<section>
 		<h1>
 		{{question.title}}
@@ -15,5 +16,12 @@
 		{{question.text}}
 		</p>
 	</section>
+	<section>
+		<h1>  Answers </h1>
+		{% for a in answers %}
+			<p> {{a.text}} <p>
+		{% endfor %}
+	</section>
+	<center>
 </body>
 </html>

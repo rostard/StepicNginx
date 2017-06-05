@@ -5,11 +5,12 @@
 	</title>
 </head>
 <body>
+	<center>
 	<section >
 		<ul class = "questions">
 			{% for q in questions %}
 			<li>
-				<a href = "/question/{{q.id}}"> {{ q.title }}{{q.added_at}}	</a>
+				<a href = "/question/{{q.id}}"> {{ q.title }} </a>
 			</li>
 			{% endfor %}
 		</ul>
@@ -27,5 +28,6 @@
 			{% endfor %}
 		</ul>
 	</nav>
+	</center>
 </body>
 </html>
