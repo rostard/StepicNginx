@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 class QuestionManager(models.Manager):
 	def new(self):
-		pass
+		return self.order_by('-added_at')
 	def popular(self):
-		pass
+		return self.order_by('-rating')
 
 class Question(models.Model):
 	objects=QuestionManager()
