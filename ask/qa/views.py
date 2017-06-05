@@ -9,12 +9,12 @@ from qa.models import Question, Answer
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
-def paging(request,qr):
+def paging(request, qr, url=""):
 	page = request.GET.get('page',1)
 	limit = request.GET.get('limit',10)
 	
 	paginator = Paginator(qr, limit)
-	paginator.baseurl = "/?page="
+	paginator.baseurl = url+"/?page="
 	page = paginator.page(page)
 	return render(request,'questions.html',{
 	 'questions': page.object_list,
@@ -27,11 +27,11 @@ def index(request):
 
 def popular(request):
 	qr = Question.objects.popular()
-	return paging(request,qr)
+	return paging(request,qr,"/popular")
 	
 def new(request):
 	qr = Question.objects.new()
-	return paging(request,qr)
+	return paging(request,qr,"/new")
 
 def question(request, num):
 	try:
