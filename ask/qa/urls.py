@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
-from .views import test
+from .views import question
 
 urlpatterns = [
-	url(r'^',test)
+	url(r'^(?P<num>\d+)/$',question),
 ]

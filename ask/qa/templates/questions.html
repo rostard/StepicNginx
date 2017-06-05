@@ -1,0 +1,31 @@
+</html>
+<head>
+	<title>
+	{{page.number}} page
+	</title>
+</head>
+<body>
+	<section >
+		<ul class = "questions">
+			{% for q in questions %}
+			<li>
+				<a href = "/question/{{q.id}}"> {{ q.title }}{{q.added_at}}	</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</section>
+	<nav class = "pages">
+		<ul>
+			{% for p in paginator.page_range %}
+			{% if p.number == page.number %}
+			<li class="active">
+			{% else %}
+			<li>
+			{% endif %}
+				<a href="{{paginator.baseurl}}{{p.number}}">{{p.number}} </a>
+			</li>
+			{% endfor %}
+		</ul>
+	</nav>
+</body>
+</html>
