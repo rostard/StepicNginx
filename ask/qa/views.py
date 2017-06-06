@@ -63,16 +63,15 @@ def question(request, num):
 		form = AnswerForm(request.POST)
 		if form.is_valid():
 			answer = form.save()
+			return HttpResponseRedirect(q.get_url())
 
-		return HttpResponseRedirect(q.get_url())
-	else:
-		form = AnswerForm(initial={'question': q.id})
-		answers = Answer.objects.filter(question=q)
+	form = AnswerForm(initial={'question': q.id})
+	answers = Answer.objects.filter(question=q)
 
-		return render(request,'question.html', {
-			'question': q,
-			'answers': answers,
-			'form': form,
-		})
+	return render(request,'question.html', {
+		'question': q,
+		'answers': answers,
+		'form': form,
+	})
 	
 
