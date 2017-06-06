@@ -16,8 +16,29 @@
 		{{question.text}}
 		</p>
 	</section>
+
 	<section>
 		<h1>  Answers </h1>
+		{% for e in form.non_field_errors %}
+		 <div class = "error_msg"> {{ e }} </div>
+		{% endfor %}
+
+		<form method="post">
+			{% csrf_token %}
+			<fieldset>
+			{% for field in form %}
+			
+				<div {% if field.is_hidden %}hidden{% endif %}>
+					<label>{{ field.label }}</label>
+					<div>{{ field }}</div>
+				</div>
+			
+			{% endfor %}
+			</fieldset>
+			<div>
+				<button type="submit">Ответить</button>
+			</div>
+		</form>
 		{% for a in answers %}
 			<p> {{a.text}} <p>
 		{% endfor %}
