@@ -81,7 +81,12 @@ def signup(request):
         url = request.POST.get('continue', '/')
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(url)
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            sessionid = do_login(username, password)
+            response = HttpResponseRedirect(url)
+            response.set_cookie('sessionid', sessionid, httponly=True, expires=datetime.now() + timedelta(days=5))
+            return response
     else:
         form = SignUpForm()
         return render(request, 'signup.html', {
@@ -92,10 +97,10 @@ def signup(request):
 def login(request):
     error = ''
     if request.method == 'POST':
-        login = request.POST.get('username')
+        username = request.POST.get('username')
         password = request.POST.get('password')
         url = request.POST.get('continue', '/')
-        sessionid = do_login(login, password)
+        sessionid = do_login(username, password)
         if sessionid:
             response = HttpResponseRedirect(url)
             response.set_cookie('sessionid', sessionid, httponly=True, expires=datetime.now() + timedelta(days=5))
