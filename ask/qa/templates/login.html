@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Авторзация</title>
+</head>
+<body>
+    <label>{{ error }}</label>
+    <form method="post">
+        {% csrf_token %}
+
+        <fieldset>
+        {% for field in form %}
+            <div>
+                <label>{{ field.label }}</label>
+                <div>{{ field }}</div>
+            </div>
+        {% endfor %}
+        </fieldset>
+        <div>
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+</body>
+</html>
