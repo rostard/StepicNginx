@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>
-	{{question.title}}
-	</title>
-</head>
-<body>
-	<center>
-	<section>
+{% extends "base.html" %}
+{% block head  %}
+	<title> question.title </title>
+	<link rel = "stylesheet" href="/css/question.css">
+{% endblock %}
+
+{% block main %}
+<center>
+	<section class="question">
 		<h1>
 		{{question.title}}
 		</h1>
@@ -17,32 +16,35 @@
 		</p>
 	</section>
 
-	<section>
+	<section class="answers">
 		<h1>  Answers </h1>
-		{% for e in form.non_field_errors %}
-		 <div class = "error_msg"> {{ e }} </div>
-		{% endfor %}
-
-		<form method="post">
-			{% csrf_token %}
-			<fieldset>
-			{% for field in form %}
-			
-				<div {% if field.is_hidden %}hidden{% endif %}>
-					<label>{{ field.label }}</label>
-					<div>{{ field }}</div>
-				</div>
-			
+		<div class="answer_form">
+			{% for e in form.non_field_errors %}
+			 <div class = "error_msg"> {{ e }} </div>
 			{% endfor %}
-			</fieldset>
-			<div>
-				<button type="submit">Ответить</button>
-			</div>
-		</form>
+
+			<form method="post">
+				{% csrf_token %}
+				<fieldset>
+				{% for field in form %}
+			
+					<div {% if field.is_hidden %}hidden{% endif %}>
+						<label>{{ field.label }}</label>
+						<div>{{ field }}</div>
+					</div>
+			
+				{% endfor %}
+				</fieldset>
+				<div>
+					<button type="submit">Ответить</button>
+				</div>
+			</form>
+		</div>
 		{% for a in answers %}
-			<p> {{a.text}} <p>
+			<div class="answer">
+				<p> {{a.text}} <p>
+			</div>
 		{% endfor %}
 	</section>
-	<center>
-</body>
-</html>
+<center>
+{% endblock %}

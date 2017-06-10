@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html >
-<head>
-    <meta charset="UTF-8">
-    <title>Авторзация</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title  %}
+	<title> Авторзация </title>
+{% endblock %}
+
+{% block main %}
     <label>{{ error }}</label>
     <form method="post">
         <fieldset>
@@ -17,8 +17,7 @@
         {% endfor %}
         </fieldset>
         <div>
-            <button type="submit">Сохранить</button>
+            <button type="submit">Войти</button>
         </div>
     </form>
-</body>
-</html>
+{% endblock %}

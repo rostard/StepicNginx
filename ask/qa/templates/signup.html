@@ -1,26 +1,27 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Регистрация</title>
-</head>
-<body>
-{% for e in form.non_field_errors %}
-    <div class = "error_msg"> {{ e }} </div>
-{% endfor %}
-<form method="post">
-    <fieldset>
-	{% csrf_token %}
-	{% for field in form %}
-		<div>
-			<label>{{ field.label }}</label>
-			<div>{{ field }}</div>
-		</div>
+{% extends "base.html" %}
+
+{% block title  %}
+	<title> Регистрация </title>
+{% endblock %}
+
+{% block main %}
+	{% for e in form.non_field_errors %}
+		<div class = "error_msg"> {{ e }} </div>
 	{% endfor %}
-	</fieldset>
-	<div>
-		<button type="submit">Зарегистрироваться</button>
-	</div>
-</form>
-</body>
-</html>
+	<form method="post">
+		<fieldset>
+		{% csrf_token %}
+		{% for field in form %}
+			<div>
+				<label>{{ field.label }}</label>
+				<div>{{ field }}</div>
+			</div>
+		{% endfor %}
+		</fieldset>
+		<div>
+			<button type="submit">Зарегистрироваться</button>
+		</div>
+	</form>
+{% endblock %}
+
+

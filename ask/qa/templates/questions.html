@@ -1,10 +1,9 @@
-</html>
-<head>
-	<title>
-	{{page.number}} page
-	</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block head  %}
+	<title> questions </title>
+	<link rel="stylesheet" href="/css/questions.css">
+{% endblock %}
+{% block main %}
 	<center>
 	<section >
 		<ul class = "questions">
@@ -29,5 +28,4 @@
 		</ul>
 	</nav>
 	</center>
-</body>
-</html>
+{% endblock %}

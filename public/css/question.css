@@ -1,0 +1,24 @@
+.question{
+	background-color: #EEEEEE;
+	margin: 5px;
+	padding: 15px;
+}
+
+.answers{
+	background-color: #EEEEEE;
+	margin: 5px;
+	padding: 15px;
+}
+
+.answer_form{
+	background-color: #DDDDDD;
+	margin: 15px;
+	padding: 10px;
+}
+
+.answers .answer{
+	background-color: #DDDDDD;
+	margin: 5px;
+	padding: 10px;
+
+}

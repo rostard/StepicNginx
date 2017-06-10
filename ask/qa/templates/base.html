@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<link rel="stylesheet" href="/libs/reset.css">
+    <link rel="stylesheet" href="/libs/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+	{% block head %} {% endblock %}
+</head>
+<body>
+	<header>
+		<a href="/">
+			<img src="/img/logo.png">
+		</a>
+		<div class="user_bar">
+			{% if user == None %}
+
+			<div >
+				<a href="/login/"> Sign in </a>
+			</div>
+			<div>
+				<a href="/signup/"> Sign Up </a>
+			</div>
+			{% else %}
+			<div class="profile">
+				{{user.username}}
+			</div>
+			<div>
+				<a href="/logout"> Log Out </a>
+			</div>
+			{% endif %}
+		</div>
+	</header>
+	<div class="main">
+		<div class="container">
+            <div class="row">
+				<div class="col-xs-9">
+                    {% block main %}{% endblock %}
+                </div>
+				<div class="col-xs-3">
+                    
+                </div>
+			</div>
+		</div>
+	</div> 
+	<footer>
+	</footer>
+	<script src="/libs/bootstrap/bootstrap.min.js"></script>
+    <script src="/libs/html5shiv.min.js"></script>
+</body>
+</html>

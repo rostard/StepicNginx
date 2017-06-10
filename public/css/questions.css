@@ -1,0 +1,10 @@
+
+.questions{
+	margin: 20px;
+}
+
+.questions li{
+	background-color: #EEEEEE;
+	padding: 5px;
+	margin: 5px;
+}

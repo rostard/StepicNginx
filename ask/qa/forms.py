@@ -42,10 +42,11 @@ class SignUpForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self):
-        pass#self.password = hash(self.cleaned_data['password']+"pile_of_salt")
+        self.password = hash(self.cleaned_data['password']+"pile_of_salt")
 
     def save(self):
         user = User(**self.cleaned_data)
+        user.password = hash(self.cleaned_data['password']+"pile_of_salt")
         user.save()
         return user
 

@@ -5,9 +5,9 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 
 from qa.forms import AskForm, AnswerForm, SignUpForm, LoginForm
 from qa.models import Question, Answer, User, Session
-from qa.shortcuts import paging, do_login
-from datetime import datetime, timedelta
-
+from qa.shortcuts import paging, do_login, cook_auth
+from datetime import  timedelta
+from django.utils import timezone
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
@@ -30,6 +30,7 @@ def new(request):
 
 def ask(request):
     sessionid = request.COOKIES.get('sessionid', None)
+    user = cook_auth(request)
     if request.method == "POST":
         form = AskForm(request.POST)
         if form.is_valid():
@@ -43,12 +44,13 @@ def ask(request):
     else:
         form = AskForm()
     return render(request, 'ask.html', {
-        'form': form,
+        'form': form, 'user': user,
     })
 
 
 def question(request, num):
     sessionid = request.COOKIES.get('sessionid', None)
+    user = cook_auth(request)
     try:
         q = Question.objects.get(id=num)
     except Question.DoesNotExist:
@@ -72,6 +74,7 @@ def question(request, num):
         'question': q,
         'answers': answers,
         'form': form,
+        'user': user,
     })
 
 
@@ -85,12 +88,13 @@ def signup(request):
             password = request.POST.get('password')
             sessionid = do_login(username, password)
             response = HttpResponseRedirect(url)
-            response.set_cookie('sessionid', sessionid, httponly=True, expires=datetime.now() + timedelta(days=5))
+            response.set_cookie('sessionid', sessionid, httponly=True, expires=timezone.now() + timedelta(days=5))
             return response
     else:
         form = SignUpForm()
         return render(request, 'signup.html', {
             'form': form,
+            'user': None,
         })
 
 
@@ -103,7 +107,7 @@ def login(request):
         sessionid = do_login(username, password)
         if sessionid:
             response = HttpResponseRedirect(url)
-            response.set_cookie('sessionid', sessionid, httponly=True, expires=datetime.now() + timedelta(days=5))
+            response.set_cookie('sessionid', sessionid, httponly=True, expires=timezone.now() + timedelta(days=5))
             return response
         else:
             error = u'Неверный логин или пароль'
@@ -111,4 +115,15 @@ def login(request):
     return render(request, 'login.html', {
         'form': form,
         'error': error,
+        'user': None,
     })
+
+
+def logout(request):
+    sessionid = request.COOKIES.get('sessionid', None)
+    if sessionid:
+        session = Session.objects.get(key=sessionid)
+        session.expires = timezone.now()-timedelta(days=1)
+        session.save()
+
+    return HttpResponseRedirect('/')
